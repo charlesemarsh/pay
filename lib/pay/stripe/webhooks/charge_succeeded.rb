@@ -20,6 +20,7 @@ module Pay
 
         def create_charge(user, object)
           charge = user.charges.find_or_initialize_by(
+            customer_id: user.id,
             processor:      :stripe,
             processor_id:   object.id,
           )
