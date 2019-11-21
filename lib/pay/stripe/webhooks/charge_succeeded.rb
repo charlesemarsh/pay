@@ -23,14 +23,18 @@ module Pay
             processor:      :stripe,
             processor_id:   object.id,
           )
-
+          if object.source.nil?
+            card = object.payment_method_details.card
+          else
+            card = object.source
+          end
           charge.update(
             amount:         object.amount,
-            card_last4:     object.source.last4,
-            card_type:      object.source.brand,
-            card_exp_month: object.source.exp_month,
-            card_exp_year:  object.source.exp_year,
-            created_at:     Time.zone.at(object.created)
+            card_last4:     card.last4,
+            card_type:      card.brand,
+            card_exp_month: card.exp_month,
+            card_exp_year:  card.exp_year,
+            created_at:     DateTime.now
           )
 
           charge
