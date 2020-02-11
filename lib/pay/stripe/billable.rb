@@ -66,6 +66,7 @@ module Pay
 
       def update_stripe_email!
         customer = stripe_customer
+        customer.name = customer_name
         customer.email = email
         customer.description = customer_name
         customer.save

@@ -30,7 +30,7 @@ module Pay
     end
 
     def customer_name
-      [try(:first_name), try(:last_name)].compact.join(" ")
+      [try(:first_name), try(:surname)].compact.join(" ")
     end
 
     def charge(amount_in_cents, options = {})
