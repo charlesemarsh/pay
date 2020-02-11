@@ -19,14 +19,9 @@ module Pay
 
         def create_charge(user, object)
           charge = user.charges.find_or_initialize_by(
-<<<<<<< HEAD
             customer_id: user.id,
-            processor:      :stripe,
-            processor_id:   object.id,
-=======
             processor: :stripe,
-            processor_id: object.id,
->>>>>>> upstream/master
+            processor_id: object.id
           )
           if object.source.nil?
             card = object.payment_method_details.card
@@ -34,21 +29,12 @@ module Pay
             card = object.source
           end
           charge.update(
-<<<<<<< HEAD
-            amount:         object.amount,
-            card_last4:     card.last4,
-            card_type:      card.brand,
-            card_exp_month: card.exp_month,
-            card_exp_year:  card.exp_year,
-            created_at:     DateTime.now
-=======
             amount: object.amount,
             card_last4: object.payment_method_details.card.last4,
             card_type: object.payment_method_details.card.brand,
             card_exp_month: object.payment_method_details.card.exp_month,
             card_exp_year: object.payment_method_details.card.exp_year,
             created_at: Time.zone.at(object.created)
->>>>>>> upstream/master
           )
 
           charge
